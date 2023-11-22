@@ -1,0 +1,5 @@
+11 
+the of a our it is so has can be and
+
+11
+int for while ll char getchar cin inline const = ;

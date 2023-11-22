@@ -1,0 +1,43 @@
+1 #include <iostream>
+2 using namespace std;
+3 typedef long long ll;
+4 const int N = 15; 
+5 int n, a[N], p[N];
+6 ll exgcd(ll a, ll b, ll &x, ll &y);
+7 inline ll qread()
+8 {
+9	ll w = 1, s = 0;
+10	char ch;
+11	while ((ch = getchar()) < '0' || ch > '9') if (ch == '-') w = -1; 
+12	while (ch >= '0' && ch <= '9') s = s*10 + ch - '0', ch = getchar();
+13	return w*s;
+14 }
+15 int main(void)
+16 {
+17	n = qread();
+18	ll M = 1, m;
+19	for (int i = 1; i <= n; i++) {
+20		p[i] = qread(), a[i] = qread();
+21		M *= p[i];
+22	}
+23	ll res = 0;
+24	for (int i = 1; i <= n; i++) {
+25		m = M/p[i];
+26		ll x, y;
+27		exgcd(m, p[i], x, y);
+28		x = (x%p[i]+p[i])%p[i];
+29		res = (res + m*x*a[i]) % M;
+30	}
+31	res = (res + M) % M;
+32	printf("%lld", res);
+33 }
+34 ll exgcd(ll a, ll b, ll &x, ll &y)
+35 {
+36	if (b == 0) {
+37		x = 1, y = 0;
+38		return a;
+39	}
+40	int r = exgcd(b, a % b, y, x);
+41	y -= (a / b) * x;
+42	return r;
+43 }
